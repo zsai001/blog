@@ -1,0 +1,71 @@
+---
+title: '使用Cloudflare优选IP加速访问'
+date: '2024-04-27'
+tags: ['Cloudflare', '建站', "DNS"]
+draft: false
+summary: 使用Cloudflare优选的DNS解析服务，提高网站的访问速度和安全性。
+---
+
+## 本站的DNS设置
+本站托管在[vercel](http://vercel.com)上，为了降低[vercel](http://vercel.com)使用额度以及保护源站的IP地址，我使用了Cloudflare的DNS解析服务。Cloudflare提供了CDN加速以及防护服务，可以有效提高网站的访问速度和安全性。
+但是对于中国用户来说，这点可能并不友好。因此这里还需要配合优选IP来解决大陆方面访问慢的问题。网上其实已经有很多教程，这里不再赘述。下面是具体的操作记录。
+
+## 修改域名的DNS服务器
+本站的主域名是[itdevnow.com](http://itdevnow.com)，同时还有一个备选域名[itdevnow.cn](http://itdevnow.cn)。我如果想使用`itdevnow.com`则需要将它放到一家支持多线路解析的DNS服务商上，这样可以根据用户的地理位置自动选择最优的线路。
+目前腾讯云的DNSpod多线路解析需要付费，所以选择了阿里云的DNS解析服务。
+
+将域名`itdevnow.com`添加到阿里云的DNS解析服务中。在域名注册商哪里修改域名的DNS服务器
+```
+ns1.alidns.com
+ns2.alidns.com
+```
+添加如下线路设置
+```
+国际线路:
+itdevnow.com cname 到 itdevnow.cn
+国内线路:
+默认：itdevnow.com cname 到 tel.itdevnow.cn
+电信：itdevnow.com cname 到 tel.itdevnow.cn
+联通：itdevnow.com cname 到 uni.itdevnow.cn
+移动：itdevnow.com cname 到 cmi.itdevnow.cn
+```
+
+## 添加域名到Cloudflare
+在Cloudflare上添加域名`itdevnow.cn`，在域名注册商哪里修改域名的DNS服务器。
+  ```
+    piers.ns.cloudflare.com
+    roxy.ns.cloudflare.com
+  ```
+Cloudflare的设置
+```
+itdevnow.cn A 到 vercel的ip地址 开启代理
+tel.itdevnow.cn A 到 优选IP地址 关闭代理
+uni.itdevnow.cn A 到 优选IP地址 关闭代理
+cmi.itdevnow.cn A 到 优选IP地址 关闭代理
+```
+
+`itdevnow.cn` 添加自定义域名 `itdevnow.com`，并设置回退源为 `itdevnow.cn`
+
+
+## 添加Vercel自定义域名
+在项目的`Domains`选项卡中，填入需要绑定的域名，然后点击`Add`域名即可。`Vercel`会自动为你生成一个CNAME或者A记录，将它添加到`Cloudflare`的DNS解析服务中即可。
+注意这里需要同时添加两个域名，一个是主域名`itdevnow.com`，另一个是备选域名`itdevnow.cn`。其中只需要添加`itdevnow.com`的CNAME记录，`itdevnow.cn`的CNAME记录可以不添加。
+
+## 获取优选IP
+有不少网站可以获取Cloudflare的优选IP，这里推荐使用[Hostmonit](https://stock.hostmonit.com/CloudFlareYes)。然后将返回的IP地址添加到Cloudflare的DNS解析服务中即可。
+![Hostmonit](/static/images/Hostmonit.png)
+
+## 最后效果
+我们可以使用[ITDog.net](https://www.itdog.cn/http/)来查看我们设置的效果
+![itdog](/static/images/itdog.png)
+
+
+
+
+
+
+
+
+
+
+
