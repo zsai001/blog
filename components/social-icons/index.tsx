@@ -8,6 +8,7 @@ import {
   Mastodon,
   Threads,
   Instagram,
+  Telegram,
 } from './icons'
 
 const components = {
@@ -17,6 +18,7 @@ const components = {
   youtube: Youtube,
   linkedin: Linkedin,
   twitter: Twitter,
+  telegram: Telegram,
   mastodon: Mastodon,
   threads: Threads,
   instagram: Instagram,

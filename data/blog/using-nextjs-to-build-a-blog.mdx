@@ -1,0 +1,36 @@
+---
+title: '使用next.js搭建自己的博客'
+date: '2024-04-27'
+tags: ['next.js', 'blog']
+draft: false
+summary: 使用next.js搭建自己的博客，如何修改配置以及如何进行部署
+images: ['/static/images/twitter-card.png']
+---
+
+## 使用next.js搭建自己的博客
+
+以前也尝试过许多搭建博客的方式，比如使用jellky、 hexo等，但是都没有坚持下来，这次尝试使用next.js搭建自己的博客，希望能坚持下来。
+直接使用next.js有点不太现实，毕竟我是一个前端小白，这里使用了这个项目[tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog)
+
+### 一些说明
+克隆项目后，需要做一些修改。
+* 修改一些模版文件，将英文修改为中文。去掉一些不需要的内容，添加备案号等。
+* 修改`data/siteMetadata.js`中的信息，这里是网站的一些基本信息，比如网站名字、作者、描述等。
+* 修改`data/authors`中的信息，这里是作者的信息，比如名字、头像、简介等。
+* 修改`data/headerNavLinks` 中的信息，这里是导航栏的信息，比如导航栏的名字、链接等。
+* 修改`data/projectsData` 这里是项目的信息，比如项目的名字、描述、链接等。
+* 修改`data/blog` 这里存放的是博客的文章，里面有draft字段，如果是true并且在正式环境中，那么这篇文章不会被渲染。
+
+### 静态部署
+next.js的项目可以使用vercel进行部署，或者使用官方推荐的docker镜像进行部署。但是我比较喜欢静态部署，这样可以减少一些麻烦。毕竟现在的博客内容不会太多，静态部署也足够了。
+在Readme中有关于静态部署的说明，主要是以下几点：
+* 在next.js配置文件中添加`output: 'export'`
+* 在next.js配置文件中注释掉`headers()`
+* 在next.js配置文件中添加`unoptimized: true`到`images`中
+* 删除`api`文件夹和调用服务端函数的组件，也可以不做处理，但是函数肯定是不能用的
+* 运行`yarn build`，生成的静态内容在`out`文件夹中
+* 部署`out`文件夹到你选择的托管服务，或者运行`npx serve out`在本地查看网站
+
+
+
+
