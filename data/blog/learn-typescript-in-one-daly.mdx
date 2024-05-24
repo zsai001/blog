@@ -1,0 +1,75 @@
+---
+title: '学习Typescript汇总'
+date: '2024-05-07'
+tags: ['images', '建站', ""]
+draft: true
+summary: 快速了解Typescript的语法，以及如何在项目中使用Typescript
+images: ['/static/images/twitter-card.png']
+---
+
+## 学习资料
+- [TypeScript 入门教程](https://wangdoc.com/typescript/)
+- [菜鸟教程](https://www.runoob.com/typescript/ts-tutorial.html)
+- [Typescript官方文档](https://www.typescriptlang.org/docs/)
+- [Typescript中文文档](https://www.tslang.cn/docs/home.html)
+- [Typescript Deep Dive](https://basarat.gitbook.io/typescript/)
+
+## 基本的语法知识
+
+### 类型注解
+```typescript
+let isDone: boolean = false;
+let decLiteral: number = 6;
+let name: string = "bob";
+let list: number[] = [1, 2, 3];
+```
+
+### 接口
+```typescript
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+let person: Person = {
+    firstName: "John",
+    lastName: "Doe"
+};
+```
+
+### 类
+```typescript
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+    return "Hello, " + this.greeting;
+  }
+}
+```
+
+### 泛型
+```typescript
+function identity<T>(arg: T): T {
+  return arg;
+}
+```
+
+### 类型推断
+```typescript
+let x = 3;
+```
+
+### 类型断言
+```typescript
+let someValue: any = "this is a string";
+let strLength: number = (someValue as string).length;
+```
+
+## 在项目中使用Typescript
+- 使用`create-react-app`创建项目
+- 使用`create-react-app my-app --template typescript`创建Typescript项目
+- 使用`npx create-react-app my-app --template typescript`创建Typescript项目
+
+
