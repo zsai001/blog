@@ -1,7 +1,7 @@
 "use client"
 
 import Link from './Link'
-import React, {useEffect, useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
 
@@ -35,14 +35,13 @@ export default function Footer() {
                     <div>{` • `}</div>
                     <Link href="/">{siteMetadata.title}</Link>
                 </div>
-                {isItDevNow && (<div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-                        <div>
-                            <a href="http://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
-                                湘ICP备2022016053号-2
-                            </a>
-                        </div>
-                    </div>
-                )}
+                <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
+                    {isItDevNow && (<div>
+                        <a href="http://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
+                            湘ICP备2022016053号-2
+                        </a>
+                    </div>)}
+                </div>
             </div>
         </footer>
     )
